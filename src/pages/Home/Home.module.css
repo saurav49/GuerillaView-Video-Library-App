@@ -1,0 +1,11 @@
+.homeDark {
+  border: 1px solid #1f2937;
+  background-color: #15202b;
+  color: #f3f4f6;
+}
+
+.homeLight {
+  border: 1px solid rgba(250, 250, 250, 0.494);
+  background-color: rgba(250, 250, 250, 0.494);
+  color: #1f2937;
+}

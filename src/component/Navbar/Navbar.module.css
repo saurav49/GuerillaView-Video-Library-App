@@ -1,0 +1,64 @@
+.nav_fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.brandImg {
+  max-width: 120px;
+  width: 29%;
+}
+
+a {
+  display: block;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hamburgerImg {
+  font-size: 2rem;
+  align-self: center;
+  margin: 0em 1em 0em 0em;
+  cursor: pointer;
+}
+
+.brandContainer {
+  display: flex;
+}
+
+.themeBtnDark {
+  border: none;
+  background: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: white;
+}
+
+.themeBtnLight {
+  border: none;
+  background: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #333;
+}
+
+@media screen and (max-width: 600px) {
+  a {
+    display: none;
+  }
+
+  .themeBtnDark {
+    display: none;
+  }
+
+  .themeBtnLight {
+    display: none;
+  }
+}

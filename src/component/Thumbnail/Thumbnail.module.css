@@ -1,0 +1,100 @@
+.thumbnail {
+  width: 270px;
+  height: 300px;
+  margin: 2em 1em;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 0.5em;
+}
+
+.thumbnailDark {
+  background-color: #192734;
+}
+
+.thumbnailLight {
+  background-color: #fff;
+}
+
+.thumbnailTitle {
+  margin: 0.5em;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.imgDiv {
+  width: 100%;
+  border-radius: 0.5em;
+}
+
+.thumbnailDesc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.thumbnailbtn {
+  background: none;
+  font-size: 1.3rem;
+  border: none;
+  cursor: pointer;
+  padding: 0.2em;
+  border-radius: 0.2em;
+}
+
+.thumbnailBtnDark {
+  color: #fff;
+}
+
+.thumbnailBtnDark:hover {
+  background-color: #a5a9af85;
+}
+
+.thumbnailBtnLight {
+  color: #333;
+}
+
+.thumbnailBtnLight:hover {
+  background-color: rgb(221, 221, 221);
+}
+
+.thumbnailDetails {
+  border: 2px solid #ddd;
+  min-width: 170px;
+  width: 80%;
+  height: 74px;
+  border-radius: 0.2em;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  transform: translate(55px, -9px);
+}
+
+.thumbnailDetailsList {
+  width: 100%;
+  height: auto;
+  padding: 0.35em 1em;
+  flex: 1;
+}
+
+.thumbnailDetailsList > span {
+  font-weight: 700;
+}
+
+.thumbnailDetailsListDark {
+  background-color: #192734;
+  color: #fff;
+}
+
+.thumbnailDetailsListLight {
+  background-color: #fff;
+  color: #333;
+}
+
+.thumbnailDetailsList:hover {
+  background-color: rgb(136, 136, 136);
+}
+
+.thumbnailDetailsListIcon {
+  font-size: 1.2rem;
+  transform: translateY(3px);
+  margin-right: 5px;
+}

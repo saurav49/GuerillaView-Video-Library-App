@@ -1,0 +1,96 @@
+.menu {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 130px;
+  left: 230px;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.sidebarDark {
+  height: calc(100vh - 10px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #1f2937;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.sidebarLight {
+  height: calc(100vh - 10px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+  color: rgb(34, 31, 31);
+}
+
+.showSidebar {
+  position: fixed;
+  left: 0;
+  width: 0px;
+  transition: width 0.5s ease;
+  top: 130px;
+  z-index: 2;
+}
+
+.sidebarToggle {
+  width: 230px;
+  /* position: fixed; */
+}
+
+.sidebarToggle > aside > a {
+  display: block;
+}
+
+.sidebarDark > a {
+  margin: 2em;
+  display: flex;
+  align-items: center;
+  display: none;
+  color: #fff;
+}
+
+.sidebarLight > a {
+  margin: 2em;
+  display: flex;
+  align-items: center;
+  display: none;
+  color: #1f2937;
+}
+
+.sidebarIcon {
+  font-size: 1.5rem;
+  margin: 0em 0.6em 0em 0em;
+}
+
+.sidebarBtnDark {
+  border: none;
+  background: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #fff;
+  display: none;
+}
+
+.sidebarBtnLight {
+  border: none;
+  background: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #333;
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebarBtnLight {
+    display: block;
+  }
+
+  .sidebarBtnDark {
+    display: block;
+  }
+}

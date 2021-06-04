@@ -1,0 +1,8 @@
+.videoListingDiv {
+  margin: 2em 3em;
+}
+
+.videoListing {
+  display: flex;
+  flex-wrap: wrap;
+}
