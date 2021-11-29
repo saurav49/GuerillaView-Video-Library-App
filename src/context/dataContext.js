@@ -1,21 +1,17 @@
-import React, { useContext, createContext, useState } from "react";
-import { videoData as Data } from "../videoData";
+import React, { createContext, useState } from "react";
 
-const DataContext = createContext();
+export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const [videoData, setVideoData] = useState(Data);
+  const [videoData, setVideoData] = useState([]);
   const [currentCategory, setCurrentCategory] = useState("All");
 
   return (
+    
     <DataContext.Provider
       value={{ videoData, setVideoData, currentCategory, setCurrentCategory }}
     >
       {children}
     </DataContext.Provider>
   );
-};
-
-export const useDataContext = () => {
-  return useContext(DataContext);
 };

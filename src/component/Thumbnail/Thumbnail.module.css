@@ -60,12 +60,11 @@
   border: 2px solid #ddd;
   min-width: 170px;
   width: 80%;
-  height: 74px;
   border-radius: 0.2em;
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  transform: translate(55px, -9px);
+  transform: translate(3.3rem, -1.1rem);
 }
 
 .thumbnailDetailsList {
@@ -97,4 +96,10 @@
   font-size: 1.2rem;
   transform: translateY(3px);
   margin-right: 5px;
+}
+
+@media screen and (max-width: 380px) {
+  .thumbnailDetails {
+    transform: translate(1.3rem, -2.8rem);
+  }
 }

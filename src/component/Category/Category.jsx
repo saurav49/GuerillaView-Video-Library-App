@@ -1,12 +1,12 @@
 import React from "react";
 import { category } from "../../videoData";
 import styles from "./Category.module.css";
-import { useTheme } from "../../context/useTheme";
-import { useDataContext } from "../../context/dataContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useData } from "../../hooks/useData";
 
 const Category = () => {
   const { theme } = useTheme();
-  const { setCurrentCategory } = useDataContext();
+  const { setCurrentCategory } = useData();
 
   return (
     <div

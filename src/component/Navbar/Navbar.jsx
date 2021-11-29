@@ -2,15 +2,24 @@ import React from "react";
 import { FaSun } from "react-icons/fa";
 import { BsMoon } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
-import { useTheme } from "../../context/useTheme";
+import { useTheme } from "../../hooks/useTheme";
 
 const Navbar = ({ showSidebar, setShowSidebar }) => {
   const { theme, setTheme } = useTheme();
 
+  const btnTheme = theme === "dark" ? "light" : "dark";
+
+  const navigate = useNavigate();
+
   const handleThemeChange = () => {
     setTheme(() => (theme === "dark" ? "light" : "dark"));
+  };
+
+  const handleGoToLoginPage = () => {
+    navigate("/login");
   };
 
   return (
@@ -37,15 +46,16 @@ const Navbar = ({ showSidebar, setShowSidebar }) => {
               className={`nav-item`}
               style={{ margin: "0.2em 2em 0em 0em", cursor: "pointer" }}
             >
-              <a
-                href="www.google.com"
-                className={`nav-link nav-link-btn-${theme}`}
+              <button
+                onClick={handleGoToLoginPage}
+                className={`btn btn-${btnTheme}`}
               >
                 LOGIN
-              </a>
+              </button>
             </li>
             <button
               onClick={handleThemeChange}
+              style={{ marginTop: "0.35em" }}
               className={
                 theme === "dark" ? styles.themeBtnDark : styles.themeBtnLight
               }

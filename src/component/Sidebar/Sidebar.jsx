@@ -6,7 +6,8 @@ import { BsMoon } from "react-icons/bs";
 import { FaHistory } from "react-icons/fa";
 import { BsFillBookmarksFill } from "react-icons/bs";
 import { AiFillLike } from "react-icons/ai";
-import { useTheme } from "../../context/useTheme";
+import { useTheme } from "../../hooks/useTheme";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
   const { theme, setTheme } = useTheme();
@@ -16,6 +17,26 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   };
 
   const btnTheme = theme === "dark" ? "light" : "dark";
+  const navigate = useNavigate();
+
+  const handleGoToPage = (type) => {
+    switch (type) {
+      case "home":
+        navigate("/");
+        break;
+      case "likedVideos":
+        navigate("/liked-videos");
+        break;
+      case "watchLater":
+        navigate("/watch-later");
+        break;
+      case "history":
+        navigate("/history");
+        break;
+      default:
+        console.log("no route");
+    }
+  };
 
   return (
     <>
@@ -37,25 +58,25 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             theme === "dark" ? styles.sidebarDark : styles.sidebarLight
           }
         >
-          <a href="www.google.com">
+          <div onClick={() => handleGoToPage("home")}>
             <FaHome className={styles.sidebarIcon} />
             <span> Home </span>
-          </a>
+          </div>
 
-          <a href="www.google.com">
+          <div onClick={() => handleGoToPage("history")}>
             <FaHistory className={styles.sidebarIcon} />
             <span> History </span>
-          </a>
+          </div>
 
-          <a href="www.google.com">
+          <div onClick={() => handleGoToPage("watchLater")}>
             <BsFillBookmarksFill className={styles.sidebarIcon} />
-            <span> Saved Videos </span>
-          </a>
+            <span> Watch Later </span>
+          </div>
 
-          <a href="www.google.com">
+          <div onClick={() => handleGoToPage("likedVideos")}>
             <AiFillLike className={styles.sidebarIcon} />
             <span> Liked Videos </span>
-          </a>
+          </div>
 
           {showSidebar && (
             <div>

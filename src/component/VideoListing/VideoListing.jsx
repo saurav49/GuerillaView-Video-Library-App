@@ -2,10 +2,10 @@ import React from "react";
 import { Thumbnail } from "../Thumbnail/Thumbnail";
 import { Category } from "../index";
 import styles from "./VideoListing.module.css";
-import { useDataContext } from "../../context/dataContext";
+import { useData } from "../../hooks/useData";
 
 const VideoListing = ({ videoData }) => {
-  const { currentCategory } = useDataContext();
+  const { currentCategory } = useData();
   let filteredData;
 
   if (currentCategory === "All") {
@@ -20,8 +20,17 @@ const VideoListing = ({ videoData }) => {
     <div className={styles.videoListingDiv}>
       <Category />
       <div className={styles.videoListing}>
-        {filteredData.map(({ id, name, desc }) => {
-          return <Thumbnail id={id} name={name} desc={desc} />;
+        {filteredData.map(({ _id, id, name, desc, avatar }) => {
+          return (
+            <Thumbnail
+              key={_id}
+              videoId={_id}
+              id={id}
+              name={name}
+              desc={desc}
+              avatar={avatar}
+            />
+          );
         })}
       </div>
     </div>

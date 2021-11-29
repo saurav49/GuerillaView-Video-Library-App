@@ -1,0 +1,115 @@
+.loginContainer {
+  padding-top: 125px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainerDark {
+  background-color: #192734;
+  color: #fff;
+}
+
+.loginContainerLight {
+  background-color: #fff;
+  color: #333;
+}
+
+.loginDiv {
+  width: 30%;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3rem;
+  margin: 1.5em 0em;
+}
+
+.loginMsg {
+  text-align: center;
+  margin: 1.2em 0em;
+  font-size: 0.9rem;
+}
+
+.loginMsg span {
+  font-weight: 800;
+  color: lightskyblue;
+  cursor: pointer;
+}
+
+.loginDivDark {
+  border: 1px solid #15202b;
+  background-color: #15202b;
+  color: #fff;
+}
+
+.loginDivLight {
+  border: 1px solid rgb(243, 243, 243);
+  background-color: rgb(243, 243, 243);
+  color: #333;
+}
+
+.loginBrandDiv {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 0em;
+}
+
+.loginBrandName {
+  margin: 0em 0em 1em 0em;
+}
+
+.inputDiv {
+  width: 50%;
+  margin: 0.5em 0em;
+  align-self: center;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  cursor: pointer;
+}
+
+label {
+  font-weight: 700;
+}
+
+.input > * {
+  margin: 0.3em 0em;
+}
+
+.input input {
+  padding: 0.7em;
+  border-radius: 0.3em;
+}
+
+.inputDark input {
+  background-color: #192734;
+  border: 1px solid rgb(243, 243, 243);
+  color: #fff;
+}
+
+.inputLight input {
+  background-color: #fff;
+  border: 1px solid #333;
+  color: #333;
+}
+
+.brandImg {
+  max-width: 120px;
+  width: 40%;
+}
+
+.loginDiv > button {
+  align-self: center;
+  /* margin-bottom: 4em; */
+  width: 50%;
+}

@@ -1,0 +1,192 @@
+.videoPageWrapper {
+  min-height: 100vh;
+  margin-top: 118px;
+  display: flex;
+  flex-direction: column;
+}
+
+.videoPageWrapper > button {
+  width: 2rem;
+  margin: 1em 0em 0em 1.3em;
+  padding: 0.2em;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.videoPageWrapperDark {
+  background-color: #192734;
+  color: #fff;
+}
+
+.videoPageWrapperLight {
+  background-color: #fff;
+  color: #333;
+}
+
+.videoPage {
+  display: flex;
+}
+
+.videoPageDark {
+  background-color: #192734; /* dark dark theme */
+  color: #fff;
+}
+
+.videoPageLight {
+  background-color: #fff;
+  color: #333;
+}
+
+.videoTitle {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 3em 2em 3em 3em;
+  border-radius: 0.3em;
+}
+
+.videoTitleDark {
+  background-color: #15202b; /* light dark theme */
+}
+
+.videoTitleLight {
+  background-color: rgb(243, 243, 243);
+}
+
+.titleAndAvatar {
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+}
+
+.iframeContainer {
+  width: 100%;
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.iframeVideo {
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  border-radius: 0.3em;
+}
+
+.videoDesc {
+  padding: 0.5em 0em;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.videoName {
+  font-size: 1.2rem;
+  padding: 0.7em 1em;
+  font-weight: 800;
+}
+
+.videoSummary {
+  font-size: 1rem;
+  padding: 1.2em 1em;
+}
+
+.videoIconsContainer {
+  display: flex;
+  width: 40%;
+  padding: 1em 0em;
+  justify-content: space-around;
+  align-self: flex-end;
+}
+
+.videoIcon {
+  font-size: 1.5rem;
+}
+
+.videoIconDark {
+  color: #fff;
+}
+
+.videoIconLight {
+  color: #333;
+}
+
+.note {
+  border-radius: 0.3em;
+  display: flex;
+  flex-direction: column;
+  margin: 3em 1em;
+  width: 30%;
+  border: 1px solid #333;
+}
+
+.noteDark {
+  background-color: #15202b;
+}
+
+.noteLight {
+  background-color: #fff;
+}
+
+.note > p {
+  padding: 0.5em 1em;
+}
+
+.noteDisplay {
+  height: 90%;
+  width: 90%;
+  align-self: center;
+  border-radius: 0.3em;
+  border: 1px solid #333;
+}
+
+.noteDisplayDark {
+  background-color: #192734;
+}
+
+.noteDisplayLight {
+  background-color: rgb(243, 243, 243);
+}
+
+.noteInput {
+  display: flex;
+  margin: 0.5em 0.9em;
+}
+
+.noteInput > textarea {
+  width: 80%;
+  margin: 0em 0.5em;
+  border-radius: 0.3em;
+}
+
+.noteInputDark > textarea {
+  background-color: #192734;
+}
+
+.noteInputLight > textarea {
+  background-color: rgb(243, 243, 243);
+}
+
+@media (max-width: 600px) {
+  .videoPage {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .videoTitle {
+    width: 90%;
+    margin: 1em 0em 0em 0em;
+  }
+
+  .note {
+    width: 90%;
+    margin: 1em 0em;
+  }
+}
