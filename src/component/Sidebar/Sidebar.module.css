@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
   position: fixed;
-  top: 130px;
+  top: 129px;
   left: 230px;
   background: rgba(0, 0, 0, 0.2);
   z-index: 2;
@@ -33,7 +33,7 @@
   left: 0;
   width: 0px;
   transition: width 0.5s ease;
-  top: 130px;
+  top: 129px;
   z-index: 2;
 }
 
@@ -85,6 +85,26 @@
   cursor: pointer;
   color: #333;
   display: none;
+}
+
+@media screen and (max-width: 679px) {
+  .showSidebar {
+    top: 175px;
+  }
+
+  .menu {
+    top: 175px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .showSidebar {
+    top: 165px;
+  }
+
+  .menu {
+    top: 165px;
+  }
 }
 
 @media screen and (max-width: 600px) {

@@ -4,11 +4,15 @@ import { useData } from "./hooks/useData";
 import { useUserData } from "./hooks/useUserData";
 
 const backEndURL = `https://guerrillaViewBackend.saurav49.repl.co`;
+const getALLvideosURL = `${backEndURL}/videos`;
+const playlistURL = `${backEndURL}/playlist`;
+const videoNoteURL = `${backEndURL}/videos/notes`;
 
 const validator = (username, email, password) => {
   const usernameRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
   const emailRegex = /\S+@\S+\.\S+/;
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+  const passwordRegex =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
   const isValidUsername = usernameRegex.test(username);
   const isValidEmail = emailRegex.test(email);
@@ -30,7 +34,12 @@ const isVideoInLiked = (likedList, videoId) => {
 };
 
 const isVideoInPlaylist = (playlistVideoList, videoId) => {
-  return playlistVideoList.find((id) => id === videoId) !== undefined;
+  console.log(
+    { playlistVideoList },
+    { videoId },
+    playlistVideoList.find((video) => video._id === videoId) !== undefined
+  );
+  return playlistVideoList.find((video) => video._id === videoId) !== undefined;
 };
 
 const InitializeApp = () => {
@@ -40,8 +49,8 @@ const InitializeApp = () => {
   useEffect(() => {
     (async function () {
       const {
-        data: { videos }
-      } = await axios.get(`${backEndURL}/videos`);
+        data: { videos },
+      } = await axios.get(getALLvideosURL);
       setVideoData(videos);
     })();
   }, []);
@@ -50,7 +59,7 @@ const InitializeApp = () => {
     fetchVideos({
       dispatchType: "FETCH_WATCH_LATER_VIDEOS",
       dataType: "watchLaterVideos",
-      endPoint: "watchLater"
+      endPoint: "watchLater",
     });
   }, []);
 
@@ -58,7 +67,7 @@ const InitializeApp = () => {
     fetchVideos({
       dispatchType: "FETCH_HISTORY_VIDEOS",
       dataType: "historyVideos",
-      endPoint: "history"
+      endPoint: "history",
     });
   }, []);
 
@@ -66,7 +75,7 @@ const InitializeApp = () => {
     fetchVideos({
       dispatchType: "FETCH_LIKED_VIDEOS",
       dataType: "likedVideos",
-      endPoint: "liked"
+      endPoint: "liked",
     });
   }, []);
 
@@ -74,7 +83,7 @@ const InitializeApp = () => {
     fetchVideos({
       dispatchType: "FETCH_ALL_PLAYLIST",
       dataType: "allPlaylist",
-      endPoint: "playlist"
+      endPoint: "playlist",
     });
   }, []);
 };
@@ -86,5 +95,8 @@ export {
   isVideoInHistory,
   isVideoInLiked,
   isVideoInPlaylist,
-  InitializeApp
+  InitializeApp,
+  playlistURL,
+  getALLvideosURL,
+  videoNoteURL,
 };

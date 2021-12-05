@@ -22,11 +22,22 @@ a {
   justify-content: space-between;
 }
 
-.hamburgerImg {
+.hamburgerBtn {
   font-size: 2rem;
   align-self: center;
   margin: 0em 1em 0em 0em;
   cursor: pointer;
+
+  border: none;
+  background: none;
+}
+
+.hamburgerBtnDark {
+  color: #fff;
+}
+
+.hamburgerBtnLight {
+  color: #333;
 }
 
 .brandContainer {
@@ -47,6 +58,18 @@ a {
   font-size: 1.7rem;
   cursor: pointer;
   color: #333;
+}
+
+@media screen and (max-width: 679px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar > div {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 600px) {

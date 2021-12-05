@@ -6,7 +6,6 @@
 }
 
 .categoryDark {
-  /* background-color: #252f3d; */
   background-color: #15202b;
   color: #f3f4f6;
 }
@@ -58,4 +57,10 @@
 
 .categoryTitle {
   font-weight: 800;
+}
+
+@media screen and (max-width: 680px) {
+  .category {
+    margin: 13em 1.3em 0.5em 1.3em;
+  }
 }

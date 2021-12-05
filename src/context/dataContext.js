@@ -7,7 +7,6 @@ export const DataProvider = ({ children }) => {
   const [currentCategory, setCurrentCategory] = useState("All");
 
   return (
-    
     <DataContext.Provider
       value={{ videoData, setVideoData, currentCategory, setCurrentCategory }}
     >

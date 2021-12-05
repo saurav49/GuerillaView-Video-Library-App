@@ -22,16 +22,26 @@ const Navbar = ({ showSidebar, setShowSidebar }) => {
     navigate("/login");
   };
 
+  const handleGoToHomePage = () => {
+    navigate("/");
+  };
+
   return (
     <div className={styles.nav_fixed}>
       <div className={`nav-container nav-container-${theme}`}>
         <nav className={styles.navbar}>
           <div className={styles.brandContainer}>
-            <GiHamburgerMenu
+            <button
               onClick={() => setShowSidebar((value) => !value)}
-              className={styles.hamburgerImg}
-            />
-            <div className={`brand`}>
+              className={
+                theme === "dark"
+                  ? `${styles.hamburgerBtn} ${styles.hamburgerBtnDark}`
+                  : `${styles.hamburgerBtn} ${styles.hamburgerBtnLight}`
+              }
+            >
+              <GiHamburgerMenu />
+            </button>
+            <div className={`brand`} onClick={handleGoToHomePage}>
               <img
                 src={`https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/PWG_Logo.svg/800px-PWG_Logo.svg.png`}
                 alt="brand"

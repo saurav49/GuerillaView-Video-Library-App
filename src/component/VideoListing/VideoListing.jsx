@@ -20,7 +20,7 @@ const VideoListing = ({ videoData }) => {
     <div className={styles.videoListingDiv}>
       <Category />
       <div className={styles.videoListing}>
-        {filteredData.map(({ _id, id, name, desc, avatar }) => {
+        {filteredData.map(({ _id, id, name, desc, avatar, notes }) => {
           return (
             <Thumbnail
               key={_id}
@@ -29,6 +29,7 @@ const VideoListing = ({ videoData }) => {
               name={name}
               desc={desc}
               avatar={avatar}
+              notes={notes}
             />
           );
         })}

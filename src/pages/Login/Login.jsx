@@ -22,7 +22,7 @@ const Login = () => {
     setPassword,
     togglePassword,
     setTogglePassword,
-    handleLogin
+    handleLogin,
   } = useAuth();
 
   const handleGoToSignUpPage = () => {
@@ -103,7 +103,7 @@ const Login = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
             onClick={handleLogin}
             className={`btn btn-${btnTheme}`}

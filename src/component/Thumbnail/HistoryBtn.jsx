@@ -9,14 +9,14 @@ const HistoryBtn = ({ videoId }) => {
   const {
     state: { historyVideos },
     fetchVideos,
-    handleRemoveVideo
+    handleRemoveVideo,
   } = useUserData();
 
   useEffect(() => {
     fetchVideos({
       dispatchType: "FETCH_HISTORY_VIDEOS",
       dataType: "historyVideos",
-      endPoint: "history"
+      endPoint: "history",
     });
   }, []);
 

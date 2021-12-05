@@ -6,21 +6,23 @@ import { useUserData } from "../../hooks/useUserData";
 import { isVideoInWatchLater } from "../../utils";
 import { FaBookmark } from "react-icons/fa";
 
-const WatchLaterBtnPage = ({ videoId, token }) => {
+const WatchLaterBtnPage = ({ videoId }) => {
   const { theme } = useTheme();
+
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const {
     state: { watchLaterVideos },
     fetchVideos,
     handleAddVideo,
-    handleRemoveVideo
+    handleRemoveVideo,
   } = useUserData();
 
   useEffect(() => {
     fetchVideos({
       dispatchType: "FETCH_WATCH_LATER_VIDEOS",
       dataType: "watchLaterVideos",
-      endPoint: "watchLater"
+      endPoint: "watchLater",
     });
   }, []);
 

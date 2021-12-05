@@ -1,12 +1,15 @@
 import React from "react";
 import styles from "./Sidebar.module.css";
-import { FaHome } from "react-icons/fa";
-import { FaSun } from "react-icons/fa";
-import { BsMoon } from "react-icons/bs";
-import { FaHistory } from "react-icons/fa";
-import { BsFillBookmarksFill } from "react-icons/bs";
-import { AiFillLike } from "react-icons/ai";
-import { useTheme } from "../../hooks/useTheme";
+import {
+  FaHome,
+  FaSun,
+  BsMoon,
+  FaHistory,
+  BsFillBookmarksFill,
+  AiFillLike,
+  CgPlayList,
+} from "../../Icons/Icons";
+import { useTheme } from "../../hooks/index";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
@@ -32,6 +35,9 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
         break;
       case "history":
         navigate("/history");
+        break;
+      case "playlists":
+        navigate("/playlists");
         break;
       default:
         console.log("no route");
@@ -76,6 +82,11 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
           <div onClick={() => handleGoToPage("likedVideos")}>
             <AiFillLike className={styles.sidebarIcon} />
             <span> Liked Videos </span>
+          </div>
+
+          <div onClick={() => handleGoToPage("playlists")}>
+            <CgPlayList className={styles.sidebarIcon} />
+            <span> My Playlists </span>
           </div>
 
           {showSidebar && (

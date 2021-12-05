@@ -1,7 +1,19 @@
-export { Home } from "./Home/Home";
-export { Login } from "./Login/Login";
-export { SignUp } from "./SignUp/SignUp";
-export { WatchLater } from "./WatchLater/WatchLater";
-export { LikedVideos } from "./LikedVideos/LikedVideos";
-export { History } from "./History/History";
-export { PrivateRoute } from "./PrivateRoute";
+import { Home } from "./Home/Home";
+import { Login } from "./Login/Login";
+import { SignUp } from "./SignUp/SignUp";
+import { WatchLater } from "./WatchLater/WatchLater";
+import { LikedVideos } from "./LikedVideos/LikedVideos";
+import { History } from "./History/History";
+import { PrivateRoute } from "./PrivateRoute";
+import { Playlists } from "./Playlists/Playlists";
+
+export {
+  Home,
+  Login,
+  SignUp,
+  WatchLater,
+  LikedVideos,
+  History,
+  PrivateRoute,
+  Playlists,
+};

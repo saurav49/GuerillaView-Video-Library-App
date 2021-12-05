@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Thumbnail.module.css";
-import { FaEllipsisV, FaFolderPlus } from "react-icons/fa";
-import { useTheme } from "../../hooks/useTheme";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import { WatchLaterBtn } from "./WatchLaterBtn";
-import { HistoryBtn } from "./HistoryBtn";
-import { useUserData } from "../../hooks/useUserData";
+import { FaEllipsisV, FaFolderPlus } from "../../Icons/Icons";
+import { useTheme, useAuth, useUserData } from "../../hooks/index";
+import { WatchLaterBtn, HistoryBtn, PlaylistBtn } from "../index";
 
-const Thumbnail = ({ videoId, id, name, desc, avatar }) => {
+const Thumbnail = ({ videoId, id, name, desc, avatar, notes }) => {
   const imgSrc = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
   const { theme } = useTheme();
   const [showDetails, setDetails] = useState(false);
@@ -32,7 +29,7 @@ const Thumbnail = ({ videoId, id, name, desc, avatar }) => {
     );
 
     navigate(`/video/${id}`, {
-      state: { id, name, desc, avatar, videoId, token }
+      state: { id, name, desc, avatar, videoId, token, notes },
     });
   };
 
@@ -76,8 +73,7 @@ const Thumbnail = ({ videoId, id, name, desc, avatar }) => {
                 : `${styles.thumbnailDetailsList} ${styles.thumbnailDetailsListLight}`
             }
           >
-            <FaFolderPlus className={styles.thumbnailDetailsListIcon} />
-            <span> Add to Playlist</span>
+            <PlaylistBtn showText={true} videoId={videoId} />
           </li>
           <HistoryBtn videoId={videoId} />
         </ul>

@@ -5,21 +5,23 @@ import styles from "./VideoPage.module.css";
 import { useUserData } from "../../hooks/useUserData";
 import { isVideoInLiked } from "../../utils";
 
-const LikeBtn = ({ videoId, token }) => {
+const LikeBtn = ({ videoId }) => {
   const { theme } = useTheme();
+
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const {
     state: { likedVideos },
     fetchVideos,
     handleAddVideo,
-    handleRemoveVideo
+    handleRemoveVideo,
   } = useUserData();
 
   useEffect(() => {
     fetchVideos({
       dispatchType: "FETCH_LIKED_VIDEOS",
       dataType: "likedVideos",
-      endPoint: "liked"
+      endPoint: "liked",
     });
   }, []);
 

@@ -1,8 +1,21 @@
 .videoListingDiv {
-  margin: 2em 3em;
+  margin: 2em 3em 7em 3em;
 }
 
-.videoListing {
-  display: flex;
-  flex-wrap: wrap;
+@media screen and (max-width: 720px) {
+  .videoListing {
+    display: grid;
+    place-items: center;
+    padding-top: 2rem;
+    grid-gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .videoListing {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 2rem;
+  }
 }

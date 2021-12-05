@@ -12,17 +12,17 @@ import { UserDataProvider } from "./context/userDataContext";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <StrictMode>
-    <ThemeProvider>
-      <DataProvider>
-        <UserDataProvider>
-          <Router>
+    <Router>
+      <ThemeProvider>
+        <DataProvider>
+          <UserDataProvider>
             <AuthProvider>
               <App />
             </AuthProvider>
-          </Router>
-        </UserDataProvider>
-      </DataProvider>
-    </ThemeProvider>
+          </UserDataProvider>
+        </DataProvider>
+      </ThemeProvider>
+    </Router>
   </StrictMode>,
   rootElement
 );
