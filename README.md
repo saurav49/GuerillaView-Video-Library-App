@@ -25,6 +25,7 @@ Live Link : https://guerilla-view.netlify.app/
 - Login and SignUp with form validation(without any library)
 - Persistant login
 - Responsive design
+- Switch between Dark/Light Theme
 
 ## Run Locally
 
