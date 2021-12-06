@@ -14,6 +14,7 @@ Live Link : https://guerilla-view.netlify.app/
 
 ## Features
 
+- Switch between Dark/Light theme
 - Video Listing by Category
 - Playlist Management - create a new playlist ,add to playlist, remove from playlist
 - Like/unlike Videos
