@@ -1,30 +1,46 @@
 import React, { createContext, useReducer, useState } from "react";
 import axios from "axios";
-import { backEndURL, playlistURL } from "../utils";
+import { backEndURL, playlistURL } from "../urls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { reducerFunction } from "../reducer/reducerFunction";
+import { useAuth } from "../hooks/index";
 
 export const UserDataContext = createContext();
 
 export const UserDataProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const { userId } = useAuth();
 
   const [state, dispatch] = useReducer(reducerFunction, {
-    watchLaterVideos: [],
-    likedVideos: [],
-    unlikeVideos: [],
-    historyVideos: [],
+    watchLaterVideos: {},
+    likedVideos: {},
+    unlikeVideos: {},
+    historyVideos: {},
     playlists: [],
   });
 
+  const populateData = async ({ url, dispatchType, dataEndPoint }) => {
+    try {
+      const { data } = await axios.get(`${url}/${userId}`);
+      if (data.success) {
+        dispatch({
+          type: dispatchType,
+          payload: data[dataEndPoint],
+        });
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   const fetchVideos = async ({ dispatchType, dataType, endPoint }) => {
     try {
-      setLoading(true);
-      const { data } = await axios.get(`${backEndURL}/${endPoint}`);
+      const { data } = await axios.post(`${backEndURL}/${endPoint}`, {
+        userId: userId,
+      });
 
       if (data.success) {
-        setLoading(false);
         dispatch({
           type: dispatchType,
           payload: data[dataType],
@@ -32,7 +48,33 @@ export const UserDataProvider = ({ children }) => {
       }
     } catch (error) {
       console.log({ error });
-      toast.dark(`error while fetching videos from watch later`, {
+
+      toast.dark(`error while fetching ${dataType}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+  const fetchAllPlaylist = async ({ dispatchType }) => {
+    try {
+      const { data } = await axios.get(`${playlistURL}/user/${userId}`);
+
+      if (data.success) {
+        dispatch({
+          type: dispatchType,
+          payload: data.allPlaylist,
+        });
+      }
+    } catch (error) {
+      console.log({ error });
+
+      toast.dark(`error while fetching playlists`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -53,17 +95,18 @@ export const UserDataProvider = ({ children }) => {
   ) => {
     try {
       if (token) {
-        setLoading(true);
-        const response = await axios.post(`${backEndURL}/${type}`, {
+        // setLoading(true);
+        const response = await axios.post(`${backEndURL}/${type}/${userId}`, {
           video: { _id: videoId },
         });
 
         if (response.data.success) {
-          setLoading(false);
+          // setLoading(false);
           dispatch({
             type: dispatchType,
             payload: response.data[dataType],
           });
+          if (dispatchType === "ADD_VIDEO_TO_HISTORY") return;
           toast.dark(`added to ${type} videos`, {
             position: "top-right",
             autoClose: 3000,
@@ -75,6 +118,7 @@ export const UserDataProvider = ({ children }) => {
           });
         }
       } else {
+        // setLoading(false);
         toast.dark(`you are not signed in, please sign in to continue`, {
           position: "top-right",
           autoClose: 3000,
@@ -86,6 +130,7 @@ export const UserDataProvider = ({ children }) => {
         });
       }
     } catch (error) {
+      // setLoading(false);
       console.log("watchlater", error);
       toast.dark(
         `error while adding video to ${type} videos, please try again`,
@@ -102,10 +147,20 @@ export const UserDataProvider = ({ children }) => {
     }
   };
 
-  const handleRemoveVideo = async (token, videoId, type, dispatchType) => {
+  const handleRemoveVideo = async (videoId, type, dispatchType) => {
     try {
-      if (!token) {
-        toast.dark(`you are not signed in, please sign in to continue`, {
+      // setLoading(true);
+      const { data } = await axios.delete(`${backEndURL}/${type}/${userId}`, {
+        data: { video: `${videoId}` },
+      });
+
+      if (data.success) {
+        dispatch({
+          type: dispatchType,
+          payload: videoId,
+        });
+        // setLoading(false);
+        toast.dark(`removed from ${type} videos`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -114,18 +169,9 @@ export const UserDataProvider = ({ children }) => {
           draggable: true,
           progress: undefined,
         });
-        return;
-      }
-      setLoading(true);
-      const { data } = await axios.delete(`${backEndURL}/${type}/${videoId}`);
-
-      if (data.success) {
-        dispatch({
-          type: dispatchType,
-          payload: videoId,
-        });
-        setLoading(false);
-        toast.dark(`removed from ${type} videos`, {
+        // setLoading(false);
+      } else {
+        toast.dark(`${data.message}`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -136,6 +182,7 @@ export const UserDataProvider = ({ children }) => {
         });
       }
     } catch (error) {
+      // setLoading(false);
       toast.dark(`error while removing video from ${type} videos`, {
         position: "top-right",
         autoClose: 3000,
@@ -150,6 +197,7 @@ export const UserDataProvider = ({ children }) => {
 
   const handleRemoveVideoFromPlaylist = async (token, playlistId, videoId) => {
     try {
+      // setLoading(true);
       if (!token) {
         toast.dark(`you are not signed in, please sign in to continue`, {
           position: "top-right",
@@ -168,10 +216,12 @@ export const UserDataProvider = ({ children }) => {
       response.data.success &&
         dispatch({
           type: "REMOVE_VIDEO_FROM_PLAYLIST",
-          payload: response.data.savePlaylist,
+          payload: response.data.playlistId,
+          reqdPlaylist: response.data.savePlaylist,
         });
-      console.log("deleteVideo1", { response });
+      // setLoading(false);
     } catch (error) {
+      // setLoading(false);
       console.log("1", { error });
     }
   };
@@ -182,13 +232,8 @@ export const UserDataProvider = ({ children }) => {
     videoId,
     setNewPlaylistName
   ) => {
-    console.log(
-      { token },
-      { newPlaylistName },
-      { videoId },
-      { setNewPlaylistName }
-    );
     try {
+      // setLoading(true);
       if (!token) {
         toast.dark(`you are not signed in, please sign in to continue`, {
           position: "top-right",
@@ -205,22 +250,26 @@ export const UserDataProvider = ({ children }) => {
       if (newPlaylistName === "") return;
 
       const response = await axios.post(playlistURL, {
-        playlist: { name: newPlaylistName, videoList: [{ _id: videoId }] },
+        playlistInfo: { userId, name: newPlaylistName, videoId },
       });
 
       dispatch({
         type: "ADD_NEW_PLAYLIST",
-        payload: response.data.saveNewPlaylist,
+        payload: response.data.playlists,
       });
       setNewPlaylistName("");
-      console.log({ response });
+
+      // setLoading(false);
     } catch (error) {
+      // setLoading(false);
       console.log({ error });
     }
   };
 
   const handleAddVideoToPlaylist = async (token, playlistId, videoId) => {
     try {
+      // setLoading(true);
+
       if (!token) {
         toast.dark(`you are not signed in, please sign in to continue`, {
           position: "top-right",
@@ -234,21 +283,26 @@ export const UserDataProvider = ({ children }) => {
         return;
       }
       const response = await axios.post(`${playlistURL}/${playlistId}`, {
-        video: { _id: videoId },
+        video: videoId,
       });
+
       response.data.success &&
         dispatch({
           type: "ADD_NEW_VIDEO_TO_PLAYLIST",
-          payload: response.data.savePlaylist,
+          payload: response.data.videoId,
+          playlistId: response.data.playlistId,
         });
-      console.log("deleteVideo2", { response });
+
+      // setLoading(false);
     } catch (error) {
-      console.log("2", { error });
+      // setLoading(false);
+      console.log({ error });
     }
   };
 
   const handleDeletePlaylist = async (token, playlistId) => {
     try {
+      // setLoading(true);
       if (!token) {
         toast.dark(`you are not signed in, please sign in to continue`, {
           position: "top-right",
@@ -263,12 +317,15 @@ export const UserDataProvider = ({ children }) => {
         return;
       }
       const response = await axios.delete(`${playlistURL}/${playlistId}`);
+
       response.data.success &&
         dispatch({
           type: "DELETE_PLAYLIST",
-          payload: response.data.deletedPlaylist._id,
+          payload: response.data.deletedPlaylistId,
         });
+      // setLoading(false);
     } catch (error) {
+      // setLoading(false);
       console.log({ error });
     }
   };
@@ -289,6 +346,8 @@ export const UserDataProvider = ({ children }) => {
         handleAddNewPlaylist,
         handleAddVideoToPlaylist,
         handleDeletePlaylist,
+        populateData,
+        fetchAllPlaylist,
       }}
     >
       {children}

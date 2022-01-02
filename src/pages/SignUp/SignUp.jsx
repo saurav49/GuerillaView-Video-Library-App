@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../Login/Login.module.css";
 import { useTheme } from "../../hooks/useTheme";
-import { BsPeopleFill } from "react-icons/bs";
-import { BsEye } from "react-icons/bs";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { BsPeopleFill, BsEye, AiOutlineEyeInvisible } from "../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { ToastContainer } from "react-toastify";
@@ -15,20 +13,30 @@ const SignUp = () => {
 
   const btnTheme = theme === "dark" ? "light" : "dark";
 
-  const {
-    username,
-    setUsername,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    confirmPassword,
-    setConfirmPassword,
-    togglePassword,
-    setTogglePassword,
-    error,
-    handleSignUp
-  } = useAuth();
+  const { error, handleSignUp } = useAuth();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [togglePassword, setTogglePassword] = useState(false);
+
+  const handleUserCredentials = async () => {
+    const backendResponse = await handleSignUp(
+      username,
+      email,
+      password,
+      confirmPassword
+    );
+
+    if (backendResponse) {
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      togglePassword(false);
+    }
+  };
 
   const handleGoToLoginPage = () => {
     navigate("/login");
@@ -135,10 +143,10 @@ const SignUp = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
           className={`btn btn-${btnTheme}`}
-          onClick={handleSignUp}
+          onClick={handleUserCredentials}
         >
           <span>SignUp</span>
           <BsPeopleFill style={{ marginLeft: "0.5em", fontSize: "0.9rem" }} />

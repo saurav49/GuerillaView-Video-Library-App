@@ -15,51 +15,59 @@ export const reducerFunction = (state, action) => {
     case "ADD_VIDEO_TO_LIKED":
       return {
         ...state,
-        likedVideos: [...state.likedVideos, { ...action.payload }],
+        likedVideos: { ...action.payload },
       };
 
     case "ADD_VIDEO_TO_HISTORY":
-      console.log("ADD_VIDEO_TO_HISTORY", action.payload);
       return {
         ...state,
-        historyVideos: [...state.historyVideos, { ...action.payload }],
+        historyVideos: { ...action.payload },
       };
 
     case "ADD_VIDEO_TO_WATCHLATER":
       return {
         ...state,
-        watchLaterVideos: [...state.watchLaterVideos, { ...action.payload }],
+        watchLaterVideos: { ...action.payload },
       };
 
     case "REMOVE_VIDEO_FROM_LIKED":
       return {
         ...state,
-        likedVideos: state.likedVideos.filter(
-          (video) => video._id !== action.payload
-        ),
+        likedVideos: {
+          ...state.likedVideos,
+          videos: state.likedVideos.videos.filter(
+            (video) => video._id !== action.payload
+          ),
+        },
       };
 
     case "REMOVE_VIDEO_FROM_HISTORY":
       return {
         ...state,
-        historyVideos: state.historyVideos.filter(
-          (video) => video._id !== action.payload
-        ),
+        historyVideos: {
+          ...state.historyVideos,
+          videos: state.historyVideos.videos.filter(
+            (video) => video._id !== action.payload
+          ),
+        },
       };
 
     case "REMOVE_VIDEO_FROM_WATCHLATER":
       return {
         ...state,
-        watchLaterVideos: state.watchLaterVideos.filter(
-          (video) => video._id !== action.payload
-        ),
+        watchLaterVideos: {
+          ...state.watchLaterVideos,
+          videos: state.watchLaterVideos.videos.filter(
+            (video) => video._id !== action.payload
+          ),
+        },
       };
 
     case "REMOVE_VIDEO_FROM_PLAYLIST":
       return {
         ...state,
         playlists: state.playlists.map((playlist) =>
-          playlist._id === action.payload._id ? action.payload : playlist
+          playlist._id === action.payload ? action.reqdPlaylist : playlist
         ),
       };
 
@@ -73,7 +81,12 @@ export const reducerFunction = (state, action) => {
       return {
         ...state,
         playlists: state.playlists.map((playlist) =>
-          playlist._id === action.payload._id ? action.payload : playlist
+          playlist._id === action.playlistId
+            ? {
+                ...playlist,
+                videoList: [...playlist.videoList, action.payload],
+              }
+            : playlist
         ),
       };
 

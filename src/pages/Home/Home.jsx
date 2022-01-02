@@ -1,14 +1,16 @@
 import React from "react";
 import { VideoListing } from "../../component/index";
-import { useData } from "../../hooks/useData";
-import { useTheme } from "../../hooks/useTheme";
+import { useData, useTheme } from "../../hooks/index";
 import styles from "./Home.module.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { InitializeApp } from "../../utils";
 
 const Home = () => {
   const { videoData } = useData();
   const { theme } = useTheme();
+
+  InitializeApp();
 
   return (
     <div

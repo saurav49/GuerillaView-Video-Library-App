@@ -4,17 +4,28 @@ import {
   FaHome,
   FaHistory,
   FaSun,
+  FaBookmark,
 } from "react-icons/fa";
-import { AiFillCloseCircle, AiFillLike } from "react-icons/ai";
-import { RiMenuAddLine, RiEdit2Fill } from "react-icons/ri";
+import {
+  AiFillCloseCircle,
+  AiFillLike,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
+import { RiMenuAddLine, RiEdit2Fill, RiLoginCircleFill } from "react-icons/ri";
 import {
   IoMdArrowRoundBack,
   IoIosAddCircle,
   IoMdRemoveCircle,
 } from "react-icons/io";
 import { HiMinusCircle } from "react-icons/hi";
-import { BsMoon, BsFillBookmarksFill } from "react-icons/bs";
+import {
+  BsMoon,
+  BsFillBookmarksFill,
+  BsPeopleFill,
+  BsEye,
+} from "react-icons/bs";
 import { CgPlayList } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export {
   FaEllipsisV,
@@ -33,4 +44,10 @@ export {
   BsFillBookmarksFill,
   CgPlayList,
   HiMinusCircle,
+  BsPeopleFill,
+  BsEye,
+  AiOutlineEyeInvisible,
+  RiLoginCircleFill,
+  GiHamburgerMenu,
+  FaBookmark,
 };

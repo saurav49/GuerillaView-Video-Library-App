@@ -5,25 +5,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { LikeBtn, PlaylistBtn, WatchLaterBtnPage } from "../index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { videoNoteURL } from "../../utils";
+import { videoNoteURL, getALLvideosURL } from "../../urls";
 import axios from "axios";
-
 import { RiEdit2Fill, IoMdArrowRoundBack } from "../../Icons/Icons";
-
-// const handleAddVideo = async (
-//   videoId,
-//   token,
-//   type,
-//   dispatchType,
-//   dataType
-// ) => {
 
 const VideoPage = () => {
   const { theme } = useTheme();
   const [noteText, setNoteText] = useState("");
   const [reqdVideo, setReqdVideo] = useState([]);
   const { id } = useParams();
-  const { videoData } = useData();
+  const { videoData, setVideoData } = useData();
+
+  useEffect(() => {
+    (async function () {
+      const {
+        data: { videos },
+      } = await axios.get(getALLvideosURL);
+      setVideoData(videos);
+    })();
+  }, []);
 
   useEffect(() => {
     const vid = videoData.filter((video) => video.id === id);
@@ -132,7 +132,7 @@ const VideoPage = () => {
               >
                 {reqdVideo[0].notes.length > 0 && (
                   <>
-                    {reqdVideo[0].notes.map(({ note }) => {
+                    {reqdVideo[0].notes.map(({ note, _id }) => {
                       return (
                         <div
                           className={
@@ -140,6 +140,7 @@ const VideoPage = () => {
                               ? `${styles.noteText} ${styles.noteTextDark}`
                               : `${styles.noteText} ${styles.noteTextLight}`
                           }
+                          key={_id}
                         >
                           <p>{note}</p>
                         </div>

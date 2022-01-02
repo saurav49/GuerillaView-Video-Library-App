@@ -1,29 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { useTheme } from "../../hooks/useTheme";
-import { RiLoginCircleFill } from "react-icons/ri";
-import { BsEye } from "react-icons/bs";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
+import {
+  AiOutlineEyeInvisible,
+  BsEye,
+  RiLoginCircleFill,
+} from "../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "react-loader-spinner";
 
 const Login = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
 
   const btnTheme = theme === "dark" ? "light" : "dark";
+  const defaultUser = { email: "user1@gmail.com", password: "Users49!" };
 
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    togglePassword,
-    setTogglePassword,
-    handleLogin,
-  } = useAuth();
+  const { handleLogin, isAuthLoading } = useAuth();
+
+  const [email, setEmail] = useState(defaultUser.email);
+  const [password, setPassword] = useState(defaultUser.password);
+  const [togglePassword, setTogglePassword] = useState(false);
+
+  const handleUserCredentials = async () => {
+    const backendResponse = await handleLogin(email, password);
+
+    if (backendResponse) {
+      setEmail("");
+      setPassword("");
+      setTogglePassword(false);
+    }
+  };
 
   const handleGoToSignUpPage = () => {
     navigate("/signup");
@@ -105,13 +115,19 @@ const Login = () => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onClick={handleLogin}
+            onClick={handleUserCredentials}
             className={`btn btn-${btnTheme}`}
           >
-            <span>Login</span>
-            <RiLoginCircleFill
-              style={{ marginLeft: "0.5em", fontSize: "0.9rem" }}
-            />
+            {isAuthLoading ? (
+              <Loader type="ThreeDots" color="#333" height={30} width={30} />
+            ) : (
+              <>
+                <span>Login</span>
+                <RiLoginCircleFill
+                  style={{ marginLeft: "0.5em", fontSize: "0.9rem" }}
+                />
+              </>
+            )}
           </button>
           <p className={styles.loginMsg}>
             Not Register? <span onClick={handleGoToSignUpPage}>SIGNUP</span>

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Thumbnail.module.css";
 import { useNavigate } from "react-router-dom";
-import { FaEllipsisV, FaFolderPlus } from "../../Icons/Icons";
+import { FaEllipsisV } from "../../Icons/Icons";
 import { useTheme, useAuth, useUserData } from "../../hooks/index";
 import { WatchLaterBtn, HistoryBtn, PlaylistBtn } from "../index";
 
 const Thumbnail = ({ videoId, id, name, desc, avatar, notes }) => {
-  const imgSrc = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  let imgSrc = "";
+  id && (imgSrc = `https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+
   const { theme } = useTheme();
   const [showDetails, setDetails] = useState(false);
 
@@ -25,7 +27,7 @@ const Thumbnail = ({ videoId, id, name, desc, avatar, notes }) => {
       token,
       "history",
       "ADD_VIDEO_TO_HISTORY",
-      "historyVideos"
+      "saveHistoryVideo"
     );
 
     navigate(`/video/${id}`, {

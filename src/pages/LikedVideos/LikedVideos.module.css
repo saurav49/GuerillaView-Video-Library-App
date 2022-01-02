@@ -1,5 +1,5 @@
 .likedContainer {
-  height: 100vh;
+  min-height: 100vh;
   margin-top: 6em;
   display: flex;
   flex-direction: column;
@@ -26,4 +26,17 @@
   align-items: center;
   flex-wrap: wrap;
   margin: 1em 2em;
+  gap: 50px;
+}
+
+.likedVideos > div {
+  width: 33.33%;
+}
+
+.loaderWrapper {
+  margin-top: 8em;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

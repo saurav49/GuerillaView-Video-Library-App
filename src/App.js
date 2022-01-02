@@ -12,12 +12,10 @@ import {
   Playlists,
   PrivateRoute,
 } from "./pages/index";
-import { InitializeApp } from "./utils";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-
-  InitializeApp();
 
   return (
     <div className="App">

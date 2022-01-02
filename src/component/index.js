@@ -9,6 +9,8 @@ import { WatchLaterBtnPage } from "./VideoPage/WatchLaterBtnPage";
 import { PlaylistBtn } from "./VideoPage/PlaylistBtn";
 import { HistoryBtn } from "./Thumbnail/HistoryBtn";
 import { WatchLaterBtn } from "./Thumbnail/WatchLaterBtn";
+import { EmptyComponent } from "./EmptyComponent/EmptyComponent";
+import { Thumbnail } from "./Thumbnail/Thumbnail";
 
 export {
   Navbar,
@@ -22,4 +24,6 @@ export {
   PlaylistBtn,
   HistoryBtn,
   WatchLaterBtn,
+  EmptyComponent,
+  Thumbnail,
 };

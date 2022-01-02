@@ -30,7 +30,7 @@ const WatchLaterBtnPage = ({ videoId }) => {
     <>
       {isVideoInWatchLater(watchLaterVideos, videoId) ? (
         <button
-          style={{ background: "none", border: "none" }}
+          style={{ background: "none", border: "none", cursor: "pointer" }}
           onClick={() =>
             handleRemoveVideo(
               videoId,
@@ -50,7 +50,7 @@ const WatchLaterBtnPage = ({ videoId }) => {
         </button>
       ) : (
         <button
-          style={{ background: "none", border: "none" }}
+          style={{ background: "none", border: "none", cursor: "pointer" }}
           onClick={() =>
             handleAddVideo(
               videoId,

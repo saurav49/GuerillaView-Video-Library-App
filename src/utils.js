@@ -2,49 +2,69 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useData } from "./hooks/useData";
 import { useUserData } from "./hooks/useUserData";
+import { getALLvideosURL } from "./urls";
 
-const backEndURL = `https://guerrillaViewBackend.saurav49.repl.co`;
-const getALLvideosURL = `${backEndURL}/videos`;
-const playlistURL = `${backEndURL}/playlist`;
-const videoNoteURL = `${backEndURL}/videos/notes`;
-
-const validator = (username, email, password) => {
-  const usernameRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+const validator = (email, password) => {
+  // const usernameRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
   const emailRegex = /\S+@\S+\.\S+/;
   const passwordRegex =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
-  const isValidUsername = usernameRegex.test(username);
+  // const isValidUsername = usernameRegex.test(username);
   const isValidEmail = emailRegex.test(email);
   const isValidPassword = passwordRegex.test(password);
 
-  return { isValidUsername, isValidEmail, isValidPassword };
+  return { isValidEmail, isValidPassword };
 };
 
 const isVideoInWatchLater = (watchLaterList, videoId) => {
-  return watchLaterList.find((video) => video._id === videoId) !== undefined;
+  if (watchLaterList.hasOwnProperty("userId")) {
+    if (watchLaterList.videos.length > 0) {
+      return (
+        watchLaterList.videos.find((video) => video._id === videoId) !==
+        undefined
+      );
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 };
 
 const isVideoInHistory = (historyList, videoId) => {
-  return historyList.find((video) => video._id === videoId) !== undefined;
+  const condition =
+    historyList.hasOwnProperty("userId") && historyList.videos.length > 0;
+
+  return condition
+    ? historyList.videos.find((video) => video._id === videoId) !== undefined
+    : false;
 };
 
 const isVideoInLiked = (likedList, videoId) => {
-  return likedList.find((video) => video._id === videoId) !== undefined;
+  console.log({ likedList }, { videoId });
+  const condition =
+    likedList.hasOwnProperty("userId") && likedList.videos.length > 0;
+
+  return condition
+    ? likedList.videos.find((video) => video._id === videoId) !== undefined
+    : false;
 };
 
 const isVideoInPlaylist = (playlistVideoList, videoId) => {
-  console.log(
-    { playlistVideoList },
-    { videoId },
-    playlistVideoList.find((video) => video._id === videoId) !== undefined
-  );
-  return playlistVideoList.find((video) => video._id === videoId) !== undefined;
+  const condition =
+    playlistVideoList.hasOwnProperty("userId") &&
+    playlistVideoList.videos.length > 0;
+
+  return condition
+    ? playlistVideoList.videos.find((video) => video._id === videoId) !==
+        undefined
+    : false;
 };
 
 const InitializeApp = () => {
   const { setVideoData } = useData();
-  const { fetchVideos } = useUserData();
+  const { fetchVideos, fetchAllPlaylist } = useUserData();
 
   useEffect(() => {
     (async function () {
@@ -80,23 +100,17 @@ const InitializeApp = () => {
   }, []);
 
   useEffect(() => {
-    fetchVideos({
+    fetchAllPlaylist({
       dispatchType: "FETCH_ALL_PLAYLIST",
-      dataType: "allPlaylist",
-      endPoint: "playlist",
     });
   }, []);
 };
 
 export {
-  backEndURL,
   validator,
   isVideoInWatchLater,
   isVideoInHistory,
   isVideoInLiked,
   isVideoInPlaylist,
   InitializeApp,
-  playlistURL,
-  getALLvideosURL,
-  videoNoteURL,
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal } from "../index";
-import { FaFolderPlus, RiMenuAddLine } from "../../Icons/Icons";
+import { RiMenuAddLine } from "../../Icons/Icons";
 import thumbnailStyles from "../Thumbnail/Thumbnail.module.css";
 import styles from "./VideoPage.module.css";
 import { useTheme } from "../../hooks";

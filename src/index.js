@@ -15,11 +15,11 @@ ReactDOM.render(
     <Router>
       <ThemeProvider>
         <DataProvider>
-          <UserDataProvider>
-            <AuthProvider>
+          <AuthProvider>
+            <UserDataProvider>
               <App />
-            </AuthProvider>
-          </UserDataProvider>
+            </UserDataProvider>
+          </AuthProvider>
         </DataProvider>
       </ThemeProvider>
     </Router>

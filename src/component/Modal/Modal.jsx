@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 import { useTheme, useUserData, useAuth } from "../../hooks/index";
 import { AiFillCloseCircle, HiMinusCircle } from "../../Icons/Icons";
-import { InitializeApp } from "../../utils";
 
 const Modal = ({ videoId, toggleShowModal, setIsShowModal }) => {
   const { theme } = useTheme();
   const { token } = useAuth();
   const [newPlaylistName, setNewPlaylistName] = useState("");
+
   const {
     state: { playlists },
     handleRemoveVideoFromPlaylist,
     handleAddNewPlaylist,
     handleAddVideoToPlaylist,
     handleDeletePlaylist,
+    fetchAllPlaylist,
   } = useUserData();
 
-  InitializeApp();
+  useEffect(() => {
+    fetchAllPlaylist({
+      dispatchType: "FETCH_ALL_PLAYLIST",
+    });
+  }, []);
 
   // flatten the array
   // const allSongsInAllPlaylists = playlists.reduce(
@@ -37,10 +42,11 @@ const Modal = ({ videoId, toggleShowModal, setIsShowModal }) => {
   };
 
   const isCheckInPlaylist = (playlistId, videoId) => {
-    const videoList = playlists.filter(
+    const videoList = playlists.find(
       (playlist) => playlist._id === playlistId
-    )[0].videoList;
-    return videoList.find((video) => video._id === videoId) !== undefined;
+    ).videoList;
+
+    return videoList.find((video_Id) => video_Id === videoId) !== undefined;
   };
 
   const deletePlaylistBtnClicked = (playlistId) => {
@@ -65,28 +71,32 @@ const Modal = ({ videoId, toggleShowModal, setIsShowModal }) => {
               <AiFillCloseCircle />
             </button>
             <>
-              {playlists.map((playlist) => {
-                return (
-                  <div className={styles.inputCheckbox} key={playlist._id}>
-                    <input
-                      type="checkbox"
-                      defaultChecked={isCheckInPlaylist(playlist._id, videoId)}
-                      onChange={() => handleCheckboxPlaylist(playlist._id)}
-                    />
-                    <p className={styles.inputText}>{playlist.name}</p>
-                    <button
-                      className={
-                        theme === "dark"
-                          ? `${styles.deletePlaylistBtn} ${styles.deletePlaylistBtnDark}`
-                          : `${styles.deletePlaylistBtn} ${styles.deletePlaylistBtnLight}`
-                      }
-                      onClick={() => deletePlaylistBtnClicked(playlist._id)}
-                    >
-                      <HiMinusCircle />
-                    </button>
-                  </div>
-                );
-              })}
+              {playlists.length > 0 &&
+                playlists.map((playlist) => {
+                  return (
+                    <div className={styles.inputCheckbox} key={playlist._id}>
+                      <input
+                        type="checkbox"
+                        defaultChecked={isCheckInPlaylist(
+                          playlist._id,
+                          videoId
+                        )}
+                        onChange={() => handleCheckboxPlaylist(playlist._id)}
+                      />
+                      <p className={styles.inputText}>{playlist.name}</p>
+                      <button
+                        className={
+                          theme === "dark"
+                            ? `${styles.deletePlaylistBtn} ${styles.deletePlaylistBtnDark}`
+                            : `${styles.deletePlaylistBtn} ${styles.deletePlaylistBtnLight}`
+                        }
+                        onClick={() => deletePlaylistBtnClicked(playlist._id)}
+                      >
+                        <HiMinusCircle />
+                      </button>
+                    </div>
+                  );
+                })}
             </>
             <>
               <p className={styles.modal_heading}>Create Playlist</p>

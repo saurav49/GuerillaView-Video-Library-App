@@ -1,45 +1,35 @@
 import React, { createContext, useContext, useState } from "react";
-import { backEndURL, validator } from "../utils";
+import { validator } from "../utils";
+import { backEndURL } from "../urls";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useUserData } from "../hooks/index";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const { token: savedToken } = JSON.parse(localStorage?.getItem("login")) || {
-    token: null
-  };
+  const savedToken = JSON.parse(localStorage?.getItem("token")) || null;
+  const id = JSON.parse(localStorage?.getItem("userId")) || "";
 
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [togglePassword, setTogglePassword] = useState(false);
   const [error, setError] = useState("");
   const [token, setToken] = useState(savedToken);
+  const [userId, setUserId] = useState(id);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = (username, email, password, confirmPassword) => {
     if (password !== confirmPassword) {
       setError("password and confirm password doesnot match");
     } else {
-      const { isValidUsername, isValidEmail, isValidPassword } = validator(
-        username,
-        email,
-        password
-      );
+      const { isValidEmail, isValidPassword } = validator(email, password);
 
-      if (!isValidUsername || !isValidEmail || !isValidPassword) {
-        !isValidUsername &&
-          setError(
-            " username should have between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter"
-          );
-
+      if (!isValidEmail || !isValidPassword) {
         !isValidEmail && setError("use valid email id");
         !isValidPassword &&
           setError(
@@ -48,14 +38,16 @@ export const AuthProvider = ({ children }) => {
       } else {
         (async function () {
           try {
+            setIsAuthLoading(true);
             const response = await axios.post(`${backEndURL}/users/signup`, {
-              user: { username, email, password }
+              user: { username, email, password },
             });
 
             console.log("new user created", { response });
             if (response.data.success) {
+              setIsAuthLoading(false);
               toast.dark(
-                `${response.data.savedUser.username} has successfully signed in`,
+                `${response.data.user.username} has successfully signed in`,
                 {
                   position: "top-right",
                   autoClose: 3000,
@@ -63,13 +55,26 @@ export const AuthProvider = ({ children }) => {
                   closeOnClick: true,
                   pauseOnHover: true,
                   draggable: true,
-                  progress: undefined
+                  progress: undefined,
                 }
               );
 
+              localStorage?.setItem(
+                "token",
+                JSON.stringify(response.data.token)
+              );
+              localStorage?.setItem(
+                "userId",
+                JSON.stringify(response.data.user._id)
+              );
+              setToken(response.data.token);
+              setUserId(response.data.user._id);
+
               setTimeout(() => {
-                navigate("/login");
-              }, 3000);
+                navigate("/");
+              }, 1500);
+
+              return response.data.success;
             }
           } catch (error) {
             toast.dark(`error while signing`, {
@@ -79,33 +84,26 @@ export const AuthProvider = ({ children }) => {
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
-              progress: undefined
+              progress: undefined,
             });
           }
         })();
 
-        // clear input fields
-        setUsername("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
         setError("");
       }
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (email, password) => {
     try {
+      setIsAuthLoading(true);
       const response = await axios.post(`${backEndURL}/users/login`, {
-        user: { email, password }
+        user: { email, password },
       });
-
-      // clear input fields
-      setEmail("");
-      setPassword("");
 
       if (response.data.success) {
         loginUser(response.data);
+        return response.data.success;
       }
     } catch (error) {
       alert("error while login");
@@ -117,49 +115,57 @@ export const AuthProvider = ({ children }) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
       });
 
       console.log({ error });
     }
   };
 
-  const loginUser = ({ token, username }) => {
-    var storage = localStorage?.setItem("login", JSON.stringify({ token }));
+  const loginUser = ({ token, user }) => {
+    localStorage?.setItem("token", JSON.stringify(token));
+    localStorage?.setItem("userId", JSON.stringify(user._id));
     setToken(token);
-    toast.dark(`${username} has successfully logged in`, {
+    setUserId(user._id);
+    setIsAuthLoading(false);
+
+    toast.dark(`${user.username} has successfully logged in`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      progress: undefined
+      progress: undefined,
     });
 
     setTimeout(() => {
       navigate(state?.from ? state.from : "/");
-    }, 3000);
+    }, 1000);
+  };
+
+  const handleLogOut = () => {
+    setToken(null);
+    setUserId(null);
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    setTimeout(() => {
+      navigate("/login");
+    }, 500);
   };
 
   return (
     <AuthContext.Provider
       value={{
-        username,
-        setUsername,
-        email,
-        setEmail,
-        password,
-        setPassword,
-        confirmPassword,
-        setConfirmPassword,
         error,
         setError,
-        togglePassword,
-        setTogglePassword,
         token,
+        userId,
         handleSignUp,
-        handleLogin
+        handleLogin,
+        handleLogOut,
+        isAuthLoading,
       }}
     >
       {children}

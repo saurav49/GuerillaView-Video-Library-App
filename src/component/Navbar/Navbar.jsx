@@ -1,14 +1,13 @@
 import React from "react";
-import { FaSun } from "react-icons/fa";
-import { BsMoon } from "react-icons/bs";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { FaSun, BsMoon, GiHamburgerMenu } from "../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
-import { useTheme } from "../../hooks/useTheme";
+import { useTheme, useAuth } from "../../hooks/index";
 
 const Navbar = ({ showSidebar, setShowSidebar }) => {
   const { theme, setTheme } = useTheme();
+  const { token, handleLogOut } = useAuth();
 
   const btnTheme = theme === "dark" ? "light" : "dark";
 
@@ -56,12 +55,21 @@ const Navbar = ({ showSidebar, setShowSidebar }) => {
               className={`nav-item`}
               style={{ margin: "0.2em 2em 0em 0em", cursor: "pointer" }}
             >
-              <button
-                onClick={handleGoToLoginPage}
-                className={`btn btn-${btnTheme}`}
-              >
-                LOGIN
-              </button>
+              {token ? (
+                <button
+                  onClick={handleLogOut}
+                  className={`btn btn-${btnTheme}`}
+                >
+                  LOGOUT
+                </button>
+              ) : (
+                <button
+                  onClick={handleGoToLoginPage}
+                  className={`btn btn-${btnTheme}`}
+                >
+                  LOGIN
+                </button>
+              )}
             </li>
             <button
               onClick={handleThemeChange}

@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
 import styles from "./Thumbnail.module.css";
 import { isVideoInHistory } from "../../utils";
-import { useUserData } from "../../hooks/useUserData";
-import { useTheme } from "../../hooks/useTheme";
-import { FaHistory } from "react-icons/fa";
+import { useUserData, useTheme } from "../../hooks/index";
+import { FaHistory } from "../../Icons/Icons";
+import { historyURL } from "../../urls";
 
 const HistoryBtn = ({ videoId }) => {
   const {
     state: { historyVideos },
-    fetchVideos,
+    populateData,
     handleRemoveVideo,
   } = useUserData();
 
   useEffect(() => {
-    fetchVideos({
+    populateData({
+      url: `${historyURL}`,
       dispatchType: "FETCH_HISTORY_VIDEOS",
-      dataType: "historyVideos",
-      endPoint: "history",
+      dataEndPoint: "historyVideos",
     });
   }, []);
 

@@ -1,6 +1,6 @@
 .playlistsContainer {
-  /* height: 100vh; */
-  margin-top: 6em;
+  min-height: 100vh;
+  margin-top: 8em;
   display: flex;
   flex-direction: column;
 }
@@ -36,7 +36,7 @@
 
 .playlistsWrapper {
   padding: 1em;
-  margin: 1em;
+  margin: 2em;
   border-radius: 0.3em;
 }
 
