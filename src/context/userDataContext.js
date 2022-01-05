@@ -62,14 +62,18 @@ export const UserDataProvider = ({ children }) => {
   };
 
   const fetchAllPlaylist = async ({ dispatchType }) => {
-    try {
-      const { data } = await axios.get(`${playlistURL}/user/${userId}`);
+    console.log({ dispatchType }, { userId });
 
-      if (data.success) {
-        dispatch({
-          type: dispatchType,
-          payload: data.allPlaylist,
-        });
+    try {
+      if (userId) {
+        const { data } = await axios.get(`${playlistURL}/user/${userId}`);
+
+        if (data.success) {
+          dispatch({
+            type: dispatchType,
+            payload: data.allPlaylist,
+          });
+        }
       }
     } catch (error) {
       console.log({ error });

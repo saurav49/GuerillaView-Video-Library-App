@@ -23,7 +23,7 @@ const App = () => {
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/video/:id" element={<VideoPage />} />
+        <PrivateRoute path="/video/:id" element={<VideoPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <PrivateRoute path="/watch-later" element={<WatchLater />} />
