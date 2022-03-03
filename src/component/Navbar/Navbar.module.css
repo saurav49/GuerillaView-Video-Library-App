@@ -9,6 +9,11 @@
 .brandImg {
   max-width: 120px;
   width: 29%;
+  cursor: pointer;
+}
+
+.brandTitle {
+  cursor: pointer;
 }
 
 a {
