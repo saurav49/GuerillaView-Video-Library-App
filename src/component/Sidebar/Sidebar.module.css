@@ -46,7 +46,7 @@
 }
 
 .sidebarDark > div {
-  margin: 2em;
+  margin: 1.75em;
   display: flex;
   align-items: center;
   display: none;
@@ -55,7 +55,7 @@
 }
 
 .sidebarLight > div {
-  margin: 2em;
+  margin: 1.75em;
   display: flex;
   align-items: center;
   display: none;
@@ -75,7 +75,8 @@
   font-size: 1.7rem;
   cursor: pointer;
   color: #fff;
-  display: none;
+  margin: 0.25em 0em 0em 1.2em;
+  align-self: flex-start;
 }
 
 .sidebarBtnLight {
@@ -84,7 +85,8 @@
   font-size: 1.7rem;
   cursor: pointer;
   color: #333;
-  display: none;
+  margin: 0.25em 0em 0em 1.2em;
+  align-self: flex-start;
 }
 
 @media screen and (max-width: 679px) {

@@ -6,14 +6,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { useUserData } from "../hooks/index";
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const savedToken = JSON.parse(localStorage?.getItem("token")) || null;
-  const id = JSON.parse(localStorage?.getItem("userId")) || "";
+  const savedToken =
+    JSON.parse(localStorage?.getItem("guerillaview__token")) || null;
+  const id = JSON.parse(localStorage?.getItem("guerillaview__userId")) || "";
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -60,11 +58,11 @@ export const AuthProvider = ({ children }) => {
               );
 
               localStorage?.setItem(
-                "token",
+                "guerillaview__token",
                 JSON.stringify(response.data.token)
               );
               localStorage?.setItem(
-                "userId",
+                "guerillaview__userId",
                 JSON.stringify(response.data.user._id)
               );
               setToken(response.data.token);
@@ -123,8 +121,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginUser = ({ token, user }) => {
-    localStorage?.setItem("token", JSON.stringify(token));
-    localStorage?.setItem("userId", JSON.stringify(user._id));
+    localStorage?.setItem("guerillaview__token", JSON.stringify(token));
+    localStorage?.setItem("guerillaview__userId", JSON.stringify(user._id));
     setToken(token);
     setUserId(user._id);
     setIsAuthLoading(false);
@@ -148,8 +146,8 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     setUserId(null);
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("guerillaview__token");
+    localStorage.removeItem("guerillaview__userId");
     setTimeout(() => {
       navigate("/login");
     }, 500);

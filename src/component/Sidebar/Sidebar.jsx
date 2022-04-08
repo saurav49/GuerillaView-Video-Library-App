@@ -90,24 +90,16 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
           </div>
 
           {showSidebar && (
-            <div>
-              <button
-                onClick={handleThemeChange}
-                className={
-                  theme === "dark"
-                    ? styles.sidebarBtnDark
-                    : styles.sidebarBtnLight
-                }
-              >
-                {theme === "dark" ? <FaSun /> : <BsMoon />}
-              </button>
-            </div>
-          )}
-
-          {showSidebar && (
-            <div>
-              <button className={`btn btn-${btnTheme}`}>LOGIN</button>
-            </div>
+            <button
+              onClick={handleThemeChange}
+              className={
+                theme === "dark"
+                  ? styles.sidebarBtnDark
+                  : styles.sidebarBtnLight
+              }
+            >
+              {theme === "dark" ? <FaSun /> : <BsMoon />}
+            </button>
           )}
         </aside>
       </div>

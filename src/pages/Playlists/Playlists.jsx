@@ -4,14 +4,23 @@ import { useTheme, useUserData, useAuth } from "../../hooks/index";
 import axios from "axios";
 import { playlistURL } from "../../urls";
 import { Thumbnail } from "../../component/Thumbnail/Thumbnail";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Playlists = () => {
   const { theme } = useTheme();
   const {
     state: { playlists },
+    fetchAllPlaylist,
   } = useUserData();
   const { userId } = useAuth();
   const [allPlaylistVids, setAllPlaylistVids] = useState([]);
+
+  useEffect(() => {
+    fetchAllPlaylist({
+      dispatchType: "FETCH_ALL_PLAYLIST",
+    });
+  }, []);
 
   useEffect(() => {
     (async function () {
@@ -25,9 +34,7 @@ const Playlists = () => {
         console.log({ error });
       }
     })();
-  }, [playlists]);
-
-  console.log({ playlists }, { allPlaylistVids });
+  }, [playlists.length]);
 
   return (
     <div
@@ -59,7 +66,7 @@ const Playlists = () => {
                     {playlist.videoList.map(
                       ({ _id, id, name, desc, avatar }) => {
                         return (
-                          <div style={{ margin: "1em" }}>
+                          <div style={{ margin: "1em" }} key={_id}>
                             <Thumbnail
                               key={_id}
                               videoId={_id}
@@ -96,6 +103,19 @@ const Playlists = () => {
             </h1>
           </div>
         )}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
+        <ToastContainer />
       </div>
     </div>
   );

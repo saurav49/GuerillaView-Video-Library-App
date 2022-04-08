@@ -9,7 +9,7 @@ import { FaBookmark } from "react-icons/fa";
 const WatchLaterBtnPage = ({ videoId }) => {
   const { theme } = useTheme();
 
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = JSON.parse(localStorage.getItem("guerillaview__token"));
 
   const {
     state: { watchLaterVideos },

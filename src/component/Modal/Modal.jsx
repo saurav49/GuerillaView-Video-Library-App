@@ -23,12 +23,6 @@ const Modal = ({ videoId, toggleShowModal, setIsShowModal }) => {
     });
   }, []);
 
-  // flatten the array
-  // const allSongsInAllPlaylists = playlists.reduce(
-  //   (acc, curr) => acc.concat(curr.videoList),
-  //   []
-  // );
-
   const handleCreatePlaylist = () => {
     handleAddNewPlaylist(token, newPlaylistName, videoId, setNewPlaylistName);
   };

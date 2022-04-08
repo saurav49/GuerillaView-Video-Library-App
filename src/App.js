@@ -2,6 +2,7 @@ import "./styles.css";
 import { Navbar, VideoPage, Sidebar } from "./component/index";
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 import {
   Home,
   Login,
@@ -13,8 +14,13 @@ import {
   PrivateRoute,
 } from "./pages/index";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { useAuth } from "./hooks/index";
 
 const App = () => {
+  let { token } = useAuth();
+  !token && (token = JSON.parse(localStorage?.getItem("guerillaview__token")));
+  token && (axios.defaults.headers.common["Authorization"] = token);
+
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (

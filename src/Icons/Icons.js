@@ -26,6 +26,7 @@ import {
 } from "react-icons/bs";
 import { CgPlayList } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdCancel } from "react-icons/md";
 
 export {
   FaEllipsisV,
@@ -50,4 +51,5 @@ export {
   RiLoginCircleFill,
   GiHamburgerMenu,
   FaBookmark,
+  MdCancel,
 };

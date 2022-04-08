@@ -42,7 +42,6 @@ const isVideoInHistory = (historyList, videoId) => {
 };
 
 const isVideoInLiked = (likedList, videoId) => {
-  console.log({ likedList }, { videoId });
   const condition =
     likedList.hasOwnProperty("userId") && likedList.videos.length > 0;
 
