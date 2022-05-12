@@ -37,7 +37,6 @@ export const UserDataProvider = ({ children }) => {
   const fetchVideos = async ({ dispatchType, dataType, endPoint }) => {
     try {
       if (!JSON.parse(localStorage?.getItem("guerillaview__token"))) {
-        console.log(JSON.parse(localStorage?.getItem("guerillaview__token")));
         return;
       }
       const { data } = await axios.post(`${backEndURL}/${endPoint}`, {

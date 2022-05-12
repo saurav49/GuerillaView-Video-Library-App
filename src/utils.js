@@ -3,6 +3,8 @@ import axios from "axios";
 import { useData } from "./hooks/useData";
 import { useUserData } from "./hooks/useUserData";
 import { getALLvideosURL } from "./urls";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validator = (email, password) => {
   // const usernameRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
@@ -67,10 +69,26 @@ const InitializeApp = () => {
 
   useEffect(() => {
     (async function () {
-      const {
-        data: { videos },
-      } = await axios.get(getALLvideosURL);
-      setVideoData(videos);
+      try {
+        const {
+          data: { videos },
+        } = await axios.get(getALLvideosURL);
+        setVideoData(videos);
+      } catch (error) {
+        toast.error(
+          `error while loading videos, don't worry we are woking on it`,
+          {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+        console.log(error);
+      }
     })();
   }, []);
 

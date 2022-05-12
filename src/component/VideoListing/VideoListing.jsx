@@ -20,19 +20,23 @@ const VideoListing = ({ videoData }) => {
     <div className={styles.videoListingDiv}>
       <Category />
       <div className={styles.videoListing}>
-        {filteredData.map(({ _id, id, name, desc, avatar, notes }) => {
-          return (
-            <Thumbnail
-              key={_id}
-              videoId={_id}
-              id={id}
-              name={name}
-              desc={desc}
-              avatar={avatar}
-              notes={notes}
-            />
-          );
-        })}
+        {Array.isArray(filteredData) && filteredData.length > 0 ? (
+          filteredData.map(({ _id, id, name, desc, avatar, notes }) => {
+            return (
+              <Thumbnail
+                key={_id}
+                videoId={_id}
+                id={id}
+                name={name}
+                desc={desc}
+                avatar={avatar}
+                notes={notes}
+              />
+            );
+          })
+        ) : (
+          <h1>No videos available</h1>
+        )}
       </div>
     </div>
   );
